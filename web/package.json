@@ -23,6 +23,8 @@
     "@codemirror/lang-javascript": "^6.1.2",
     "@codemirror/lang-markdown": "6.3.0",
     "@codemirror/language-data": "6.5.1",
+    "@emoji-mart/data": "^1.2.1",
+    "@emoji-mart/react": "^1.1.1",
     "@fontsource/inter": "^5.0.0",
     "@fontsource/poppins": "5.1.0",
     "@next/bundle-analyzer": "^14.0.0",
