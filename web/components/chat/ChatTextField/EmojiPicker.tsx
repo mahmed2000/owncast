@@ -19,6 +19,12 @@ export const EmojiPicker: FC<EmojiPickerProps> = ({ onEmojiSelect, customEmoji }
     }));
 
     setCustom([{ id: 'custom', name: 'Custom', emojis: e }]);
+
+    // hack to make the picker work with viewbox only svgs, 24px is default size
+    const shadow = document.querySelector('em-emoji-picker').shadowRoot;
+    const pickerStyles = new CSSStyleSheet();
+    pickerStyles.replaceSync('.emoji-mart-emoji {width: 24px;}');
+    shadow.adoptedStyleSheets = [pickerStyles];
   }, []);
 
   return <Picker data={data} custom={custom} onEmojiSelect={onEmojiSelect} />;
