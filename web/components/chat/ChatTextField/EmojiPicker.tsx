@@ -9,7 +9,18 @@ export type EmojiPickerProps = {
 
 export const EmojiPicker: FC<EmojiPickerProps> = ({ onEmojiSelect, customEmoji }) => {
   const [custom, setCustom] = useState({});
-
+  const categories = [
+    'frequent',
+    'custom', // same id as in the setCustom call below
+    'people',
+    'nature',
+    'foods',
+    'activity',
+    'places',
+    'objects',
+    'symbols',
+    'flags',
+  ];
   // Recreate the emoji picker when the custom emoji changes.
   useEffect(() => {
     const e = customEmoji.map(emoji => ({
@@ -27,5 +38,7 @@ export const EmojiPicker: FC<EmojiPickerProps> = ({ onEmojiSelect, customEmoji }
     shadow.adoptedStyleSheets = [pickerStyles];
   }, []);
 
-  return <Picker data={data} custom={custom} onEmojiSelect={onEmojiSelect} />;
+  return (
+    <Picker data={data} custom={custom} onEmojiSelect={onEmojiSelect} categories={categories} />
+  );
 };
