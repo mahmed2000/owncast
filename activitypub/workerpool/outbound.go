@@ -29,8 +29,13 @@ func InitOutboundWorkerPool() {
 
 // AddToOutboundQueue will queue up an outbound http request.
 func AddToOutboundQueue(req *http.Request) {
-	log.Tracef("Queued request for ActivityPub destination %s", req.RequestURI)
-	queue <- Job{req}
+	select {
+	case queue <- Job{req}:
+		log.Tracef("Queued request for ActivityPub destination %s", req.RequestURI)
+	default:
+		log.Warnln("Outbound ActivityPub job queue is full")
+		queue <- Job{req} // will block until received by a worker at this point
+	}
 }
 
 func worker(workerID int, queue <-chan Job) {
