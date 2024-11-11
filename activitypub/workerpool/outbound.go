@@ -19,7 +19,7 @@ var queue chan Job
 
 // InitOutboundWorkerPool starts n go routines that await ActivityPub jobs.
 func InitOutboundWorkerPool() {
-	queue = make(chan Job)
+	queue = make(chan Job, workerPoolSize*5) // arbitrary buffer value.
 
 	// start workers
 	for i := 1; i <= workerPoolSize; i++ {
