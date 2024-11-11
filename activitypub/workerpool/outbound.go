@@ -31,11 +31,11 @@ func InitOutboundWorkerPool() {
 func AddToOutboundQueue(req *http.Request) {
 	select {
 	case queue <- Job{req}:
-		log.Tracef("Queued request for ActivityPub destination %s", req.RequestURI)
 	default:
 		log.Warnln("Outbound ActivityPub job queue is full")
 		queue <- Job{req} // will block until received by a worker at this point
 	}
+	log.Tracef("Queued request for ActivityPub destination %s", req.RequestURI)
 }
 
 func worker(workerID int, queue <-chan Job) {
