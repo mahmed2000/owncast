@@ -145,7 +145,8 @@ export default function EditSocialLinks() {
 
   // posts all the variants at once as an array obj
   const postUpdateToAPI = async (postValue: any) => {
-    if (!displayModal) { // only create the processing status if the modal is inactive
+    if (!displayModal) {
+      // only create the processing status if the modal is inactive
       resetTimer = null;
       setSubmitStatus(createInputStatus(STATUS_PROCESSING));
     }
