@@ -49,12 +49,12 @@ install_ffmpeg
 
 start_owncast
 
-npx lambdatest-cypress run --build-name "desktop-offline-$BUILD_ID" --tags "desktop,offline" --envs "tags=desktop" --build-identifier "$BUILD_ID" --specs "./cypress/e2e/offline/*.cy.js" --tname "$BUILD_ID" --autostart "false" --sync "true"
-npx lambdatest-cypress run --build-name "mobile-offline-$BUILD_ID" --tags "mobile,offline" --envs "tags=mobile" --build-identifier "$BUILD_ID" --specs "./cypress/e2e/offline/*.cy.js" --tname "$BUILD_ID" --res "375x667" --autostart "false" --sync "true"
+npx lambdatest-cypress run --build-name "desktop-offline-" --tags "desktop,offline" --envs "tags=desktop" --build-identifier "$BUILD_ID" --specs "./cypress/e2e/offline/*.cy.js" --tname "$BUILD_ID" --autostart "false" --sync "true"
+npx lambdatest-cypress run --build-name "mobile-offline-" --tags "mobile,offline" --envs "tags=mobile,CYPRESS_VIEWPORT_WIDTH=375,CYPRESS_VIEWPORT_HIEGHT=667" --build-identifier "$BUILD_ID" --specs "./cypress/e2e/offline/*.cy.js" --tname "$BUILD_ID" --autostart "false" --sync "true"
 
 start_stream
 sleep 20
 
-npx lambdatest-cypress run --build-name "desktop-online-$BUILD_ID" --tags "desktop,online" --envs "tags=desktop" --build-identifier "$BUILD_ID" --specs "./cypress/e2e/online/*.cy.js" --tname "$BUILD_ID" --autostart "false" --sync "true"
-npx lambdatest-cypress run --build-name "mobile-online-$BUILD_ID" --tags "mobile,online" --envs "tags=mobile" --build-identifier "$BUILD_ID" --specs "./cypress/e2e/online/*.cy.js" --tname "$BUILD_ID" --res "375x667" --autostart "false" --sync "true"
+npx lambdatest-cypress run --build-name "desktop-online-" --tags "desktop,online" --envs "tags=desktop" --build-identifier "$BUILD_ID" --specs "./cypress/e2e/online/*.cy.js" --tname "$BUILD_ID" --autostart "false" --sync "true"
+npx lambdatest-cypress run --build-name "mobile-online-" --tags "mobile,online" --envs "tags=mobile,CYPRESS_VIEWPORT_WIDTH=375,CYPRESS_VIEWPORT_HIEGHT=667" --build-identifier "$BUILD_ID" --specs "./cypress/e2e/online/*.cy.js" --tname "$BUILD_ID" --autostart "false" --sync "true"
 
