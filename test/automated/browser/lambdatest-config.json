@@ -11,7 +11,7 @@
    "run_settings": {
       "reporter_config_file": "base_reporter_config.json",
       "build_name": "build-name",
-      "parallels": 1,
+      "parallels": 8,
       "ignore_files": "",
       "network": false,
       "headless": false,
@@ -23,7 +23,6 @@
    },
    "tunnel_settings": {
       "tunnel": true,
-      "tunnel_name": null,
-      "autostart": false
+      "tunnel_name": null
    }
 }
