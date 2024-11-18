@@ -16,6 +16,7 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 import fetchData from './fetchData.js';
+import '../../custom_support_file.js';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
