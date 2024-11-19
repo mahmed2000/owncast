@@ -7,19 +7,6 @@ source ../tools.sh
 
 BUILD_ID=$((RANDOM % 7200 + 600))
 
-finish() {
-	kill_with_kids "$LT_TUNNEL_PID"
-	kill_with_kids "$STREAM_PID"
-}
-
-curl -o ./LT.zip https://downloads.lambdatest.com/tunnel/v3/linux/64bit/LT_Linux.zip
-unzip -o ./LT.zip
-# Use BUILD_ID to set the tunnel name, instead of having to parse out a random uuid.
-./LT --user "$LT_USER" --key "$LT_ACCESS_KEY" --tunnelName "$BUILD_ID" &
-LT_TUNNEL_PID=$!
-
-trap finish EXIT TERM INT
-
 # Bundle the updated web code into the server codebase.
 if [ -z "$SKIP_BUILD" ]; then
 	echo "Bundling web code into server..."
