@@ -22,7 +22,6 @@
       }
    },
    "tunnel_settings": {
-      "tunnel": true,
-      "tunnel_name": null
+      "tunnel": true
    }
 }
