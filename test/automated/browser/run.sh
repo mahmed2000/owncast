@@ -18,7 +18,7 @@ unzip -o ./LT.zip
 ./LT --user "$LT_USER" --key "$LT_ACCESS_KEY" --tunnelName "$BUILD_ID" &
 LT_TUNNEL_PID=$!
 
-tap finish EXIT TERM INT
+trap finish EXIT TERM INT
 
 # Bundle the updated web code into the server codebase.
 if [ -z "$SKIP_BUILD" ]; then
