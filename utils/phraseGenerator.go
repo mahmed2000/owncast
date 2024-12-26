@@ -2,7 +2,10 @@ package utils
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
+	"regexp"
+	"strconv"
 	"time"
 )
 
@@ -624,6 +627,8 @@ var (
 		// Ultimate frisbee terminology for Ginger
 		"huck", "hammer", "scoober", "disc", "frisbee",
 	}
+
+	template_regex = regexp.MustCompile(`\{(wl|wr|#\d)\}`)
 )
 
 // GeneratePhrase will generate and return a random string consisting of our word list.
@@ -639,4 +644,39 @@ func RandomIndex(max int) int {
 	r := rand.New(rand.NewSource(time.Now().UnixNano())) //nolint
 
 	return int(r.Float32() * float32(max))
+}
+
+// GeneratePhraseTemplate will try to populate any found pre-defined pattern with a corresponding random value
+func GeneratePhraseTemplate(template string) string {
+	// match will only ever be nil or a slice with 4 elements
+	// start-end, start-end pairs of the whole match and the capture group
+	match := template_regex.FindStringSubmatchIndex(template)
+	for match != nil {
+		var repl string
+		pattern := template[match[2]:match[3]]
+
+		// current patterns:
+		// wl: a random word in the slice "left"
+		// wr: a random word in the slice "right"
+		// #d: a random number, d defines the maximum number of digits
+		//
+		// Failures result in the fallback phrase generator being evoked.
+		if pattern == "wl" {
+			repl = left[RandomIndex(len(left))]
+		} else if pattern == "wr" {
+			repl = right[RandomIndex(len(right))]
+		} else if pattern[0] == '#' {
+			n, err := strconv.Atoi(pattern[1:])
+			if err != nil {
+				return GeneratePhrase()
+			}
+			// maybe add a max limit to n?
+			repl = fmt.Sprintf("%d", rand.Intn(int(math.Pow10(n))))
+		} else {
+			return GeneratePhrase()
+		}
+		template = template[:match[0]] + repl + template[match[1]:]
+		match = template_regex.FindStringSubmatchIndex(template)
+	}
+	return template
 }

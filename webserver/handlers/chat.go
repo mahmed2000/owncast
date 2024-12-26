@@ -111,7 +111,7 @@ func generateDisplayName() string {
 
 	if len(suggestedUsernamesList) >= minSuggestedUsernamePoolLength {
 		index := utils.RandomIndex(len(suggestedUsernamesList))
-		return suggestedUsernamesList[index]
+		return utils.GeneratePhraseTemplate(suggestedUsernamesList[index])
 	} else {
 		return utils.GeneratePhrase()
 	}
