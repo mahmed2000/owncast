@@ -115,6 +115,7 @@ func renderIndexHtml(w http.ResponseWriter, nonce string) {
 		return
 	}
 
+	w.Header().Add("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(buf.Bytes())
 }
